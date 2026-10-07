@@ -98,3 +98,14 @@ only when it is served from a developer's own machine. Nothing is transmitted an
 nothing syncs. It exists so the interface can be worked on without a real learner's
 credentials; it is not a free tier, not a trial, and not something a learner can
 reach.
+
+**Device storage budget** — The amount of space the learner's browser is willing to
+grant for video files. It is finite and set by the browser, not by FeyFey. Because
+the product is local-first, this budget is the real ceiling on how large a library
+can grow, so it is shown to the learner rather than hidden.
+
+**Refused add** — An attempt to add a video that could not be written to device
+storage, and so was not added at all. The distinction that matters is between a
+refused add, which the learner is told about and can act on, and a silent loss,
+where an item appears to exist but its file does not. A refused add is the correct
+outcome; a silent loss is a defect.

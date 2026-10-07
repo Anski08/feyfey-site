@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FeyFey — spaced repetition for the videos you learn from</title>
 <meta name="description" content="FeyFey turns passive video watching into active recall. Bookmark the moments that matter, then review them on a spacing schedule. Your video files never leave your device.">
-<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="%232848d8"/><text x="32" y="45" font-family="Figtree,Arial,sans-serif" font-size="38" font-weight="700" fill="%23fff" text-anchor="middle">F</text></svg>'>
+<link rel="icon" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -143,6 +143,30 @@
     </div>
   </section>
 
+  <section class="section" id="screens" style="padding-top:0">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">What it looks like</p>
+        <h2 class="h-lg">One screen to review, one to organise.</h2>
+        <p class="muted">Screenshots from the current preview build, with a sample library.</p>
+      </div>
+      <div class="shots">
+        <figure class="shot">
+          <img src="assets/img/app-today.png" width="870" height="1002" loading="lazy" decoding="async"
+               alt="The Today screen: counts for overdue, due and new; a card showing the pre-watch question 'Why is a beta-blocker risky in asthma?', the video, two bookmarks, and four rating buttons showing 1, 7, 15 and 20 days.">
+          <figcaption class="small muted"><strong>Today.</strong> The question comes before the
+            video. Your rating sets the next interval, shown on each button before you pick.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/img/app-library.png" width="870" height="1467" loading="lazy" decoding="async"
+               alt="The Library screen: videos grouped by subject, each with an editable title, its original file name, how much device storage is in use, and a pre-watch question field.">
+          <figcaption class="small muted"><strong>Library.</strong> Grouped by subject. Titles are
+            editable, the original file name is kept, and device storage use is shown up front.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <section class="section section-muted">
     <div class="container stack-lg">
       <div>
@@ -256,6 +280,70 @@
       <p class="small muted">This list is maintained by hand and reflects the build as of
          October 2026. If something here is out of date, it is an oversight rather than a
          claim.</p>
+    </div>
+  </section>
+
+  <section class="section section-muted" id="faq">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">Questions</p>
+        <h2 class="h-lg">The things people ask first.</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Do my videos get uploaded anywhere?</summary>
+          <p>No. Video files are written to storage inside your own browser and are never
+             sent to us or to anyone else. What does sync to your account is the text
+             around them: titles, subjects, bookmark labels and timestamps, your pre-watch
+             questions, and the review schedule.</p>
+        </details>
+        <details>
+          <summary>So what happens when I open it on a second device?</summary>
+          <p>Your library, bookmarks and schedule appear, because those sync. The video
+             files do not, because they never left the first device. Each item shows the
+             original file name so you can find the right file and re-attach it. This is
+             the honest cost of keeping your video private, and it is a deliberate trade.</p>
+        </details>
+        <details>
+          <summary>Is this just Anki for video?</summary>
+          <p>The scheduling idea is the same lineage &mdash; FeyFey uses an SM-2 style
+             algorithm. The difference is the unit. A flashcard app asks you to first turn a
+             video into cards, which is the step most people never do. Here the video itself
+             is the thing being scheduled, and the active-recall step is a question you write
+             once and see before each replay.</p>
+        </details>
+        <details>
+          <summary>What counts as "spaced repetition" here?</summary>
+          <p>After each review you rate how it went: Forgot, Hard, Good or Easy. That rating
+             sets how many days pass before the video returns. Get it right repeatedly and the
+             gaps widen fast; get it wrong and the item resets to one day and its future gaps
+             get permanently shorter. Each button shows its resulting interval before you press it.</p>
+        </details>
+        <details>
+          <summary>Can I record myself explaining something and review that?</summary>
+          <p>Yes, and it's one of the better ways to use it. A video of you teaching a topic
+             back is stored and scheduled exactly like any other video &mdash; there is no
+             separate mode for it.</p>
+        </details>
+        <details>
+          <summary>How much space will this take on my device?</summary>
+          <p>However much your videos take, since they are stored locally. The Library screen
+             shows how much you have used against what your browser allows, and warns you
+             before you run out. Browsers typically allow several gigabytes.</p>
+        </details>
+        <details>
+          <summary>What if I stop paying, or FeyFey shuts down?</summary>
+          <p>Your video files are already on your device and are unaffected either way. We
+             don't yet have a one-click export for the library metadata, and that is a gap
+             worth naming rather than hiding &mdash; it's on the list.</p>
+        </details>
+        <details>
+          <summary>How finished is this?</summary>
+          <p>It is an early preview and labelled that way everywhere. The review loop,
+             bookmarks, scheduling and library all work. Expect rough edges, and expect
+             things to change.</p>
+        </details>
+      </div>
     </div>
   </section>
 
