@@ -24,8 +24,20 @@ state. The unit the scheduler operates on. An item is not the video file; an ite
 from an item, and deliberately so: an item can exist on a device where its video
 file does not.
 
+**Title** — The learner's name for an item. It *defaults* to the video file's name
+when the item is created, but it is a separate thing and editing it changes nothing
+on disk. "Renaming a video" always means renaming its title.
+
+**File name** — The name the video file had when it was added. Recorded against the
+item and never edited, because it is the only way a learner can recognise which file
+to pick when re-attaching the item on another device. Distinct from the title, which
+drifts away from it as soon as the learner renames anything.
+
 **Bookmark** — A label a learner writes, paired with a timestamp in a video.
 Bookmarks point *into* a video. They are not general notes and are not free-standing.
+Each bookmark has an identity of its own that survives being renamed or moved to a
+different timestamp, so a bookmark is the same bookmark after an edit, not a
+replacement for the one that was there.
 
 **Pre-watch question** — A question the learner writes to be shown *before* the
 video plays, so an answer is attempted before the video supplies one. The mechanism
@@ -80,3 +92,9 @@ This is what synchronises between devices.
 
 **Preview** — The currently deployed build. Early, incomplete, and labelled as such
 wherever it is linked.
+
+**Local dev mode** — A way of running the product with no account at all, available
+only when it is served from a developer's own machine. Nothing is transmitted and
+nothing syncs. It exists so the interface can be worked on without a real learner's
+credentials; it is not a free tier, not a trial, and not something a learner can
+reach.
