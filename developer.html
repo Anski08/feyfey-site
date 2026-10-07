@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How FeyFey is built — architecture, scheduling and data boundaries</title>
+<meta name="description" content="The engineering behind FeyFey: a local-first storage model, an SM-2 derived spacing scheduler, row-level security, and the trade-offs behind each decision.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="%232848d8"/><text x="32" y="45" font-family="Figtree,Arial,sans-serif" font-size="38" font-weight="700" fill="%23fff" text-anchor="middle">F</text></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="wordmark" href="index.html"><span class="dot">F</span> FeyFey</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html">Overview</a>
+      <a href="developer.html" aria-current="page">How it's built</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container stack-lg">
+      <p class="eyebrow">How it's built</p>
+      <h1>A local-first study app with a very small server.</h1>
+      <p>FeyFey holds as little of your data as it can get away with. This page explains
+         the storage split, the scheduling arithmetic, and why each boundary sits where
+         it does.</p>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">Who builds it</p>
+        <h2 class="h-lg">One developer, building in the open.</h2>
+      </div>
+      <p class="muted measure">FeyFey is an independent project. It is deliberately small:
+         no framework, no build step, no analytics, and no tracking of any kind. The
+         entire client is a single HTML document that talks to three serverless functions.
+         That constraint is a feature &mdash; it keeps the attack surface, the hosting
+         cost and the number of things that can silently break all close to zero.</p>
+      <div class="callout callout-info">
+        <h3>About the name</h3>
+        <p>The preview build still shows the earlier working name, <strong>Recall</strong>,
+           in its interface and in some internal storage keys. FeyFey is the name going
+           forward; the rename has not shipped yet. If you open the preview and see
+           "Recall", that is why &mdash; not a different product.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">The stack</p>
+        <h2 class="h-lg">Four moving parts.</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>What it is</th><th>What it holds</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Client</strong></td><td>One static HTML file, vanilla JavaScript, no framework or bundler</td><td>Everything, while you use it</td></tr>
+            <tr><td><strong>Browser storage</strong></td><td>IndexedDB for video files, <code>localStorage</code> for the working copy of your library</td><td>Your video files &mdash; permanently and exclusively</td></tr>
+            <tr><td><strong>Database</strong></td><td>Hosted Postgres with row-level security and email authentication</td><td>Your account, your schedule metadata, your subscription status</td></tr>
+            <tr><td><strong>Functions</strong></td><td>Three serverless endpoints for billing only</td><td>Nothing persistent</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">There is no media server, no object storage bucket, and no
+         content delivery network holding user files. That is not an omission &mdash; it
+         is the central design decision, and everything else follows from it.</p>
+    </div>
+  </section>
+
+  <section class="section section-muted" id="storage">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">Storage model</p>
+        <h2 class="h-lg">Heavy data stays put. Light data travels.</h2>
+      </div>
+      <div class="split">
+        <div class="stack">
+          <p class="muted">Every item in your library is split in two. The video file &mdash;
+             tens or hundreds of megabytes &mdash; is written to IndexedDB under a
+             generated identifier and never leaves the browser that received it.
+             Playback uses an in-memory object URL, so even rendering the video involves
+             no network request.</p>
+          <p class="muted">The <em>description</em> of that item is a few hundred bytes:
+             a title, a subject, a priority, an optional question, a list of bookmark
+             labels with their timestamps, and the scheduling state. That is what is
+             written to the database, debounced so that rapid edits collapse into a
+             single write.</p>
+          <p class="muted">The consequence is the one we state plainly on the overview
+             page: sign in on a second device and your library appears with its full
+             schedule intact, but each video shows as missing until you attach the file
+             on that device too.</p>
+        </div>
+        <div class="card" style="padding:var(--space-md)">
+          <svg viewBox="0 0 440 290" role="img" aria-label="Diagram: video files remain in browser storage; only metadata crosses the network to the database.">
+            <rect x="8" y="16" width="200" height="258" rx="18" fill="var(--color-surface-muted)" stroke="var(--color-border)" stroke-width="2"/>
+            <text x="28" y="46" font-size="14" font-weight="700" fill="var(--color-ink)">Your device</text>
+            <rect x="28" y="62" width="160" height="78" rx="12" fill="var(--color-primary)"/>
+            <text x="44" y="92" font-size="13" font-weight="700" fill="#fff">Video files</text>
+            <text x="44" y="112" font-size="12" fill="rgba(255,255,255,.85)">IndexedDB</text>
+            <text x="44" y="130" font-size="12" fill="rgba(255,255,255,.85)">never uploaded</text>
+            <rect x="28" y="156" width="160" height="62" rx="12" fill="var(--color-accent-lime)"/>
+            <text x="44" y="182" font-size="13" font-weight="700" fill="var(--color-ink)">Working copy</text>
+            <text x="44" y="200" font-size="12" fill="var(--color-ink)">localStorage</text>
+
+            <path d="M214 190 L300 190" stroke="var(--color-slate)" stroke-width="3" stroke-dasharray="7 6"/>
+            <path d="M296 184 L308 190 L296 196 Z" fill="var(--color-slate)"/>
+            <text x="216" y="178" font-size="12" font-weight="600" fill="var(--color-slate)">metadata only</text>
+
+            <rect x="312" y="124" width="120" height="132" rx="18" fill="var(--color-surface)" stroke="var(--color-border)" stroke-width="2"/>
+            <text x="330" y="154" font-size="14" font-weight="700" fill="var(--color-ink)">Database</text>
+            <text x="330" y="176" font-size="12" fill="var(--color-slate)">account</text>
+            <text x="330" y="196" font-size="12" fill="var(--color-slate)">schedule</text>
+            <text x="330" y="216" font-size="12" fill="var(--color-slate)">bookmarks</text>
+            <text x="330" y="236" font-size="12" fill="var(--color-slate)">subscription</text>
+
+            <line x1="228" y1="40" x2="432" y2="40" stroke="var(--color-border)" stroke-width="2" stroke-dasharray="4 5"/>
+            <text x="228" y="32" font-size="12" font-weight="600" fill="var(--color-slate)">network boundary</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="scheduler">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">The scheduler</p>
+        <h2 class="h-lg">An SM-2 variant, stated in full.</h2>
+      </div>
+      <p class="muted measure">Each item carries two numbers: an <strong>interval</strong>
+         in days, starting at zero, and an <strong>ease factor</strong>, starting at 2.5.
+         Every rating transforms both. Nothing else is consulted &mdash; no hidden model,
+         no server-side scoring.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Rating</th><th>New interval</th><th>Ease factor</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Forgot</strong></td>
+              <td><code>1 day</code></td>
+              <td>reduced by <code>0.2</code></td>
+            </tr>
+            <tr>
+              <td><strong>Hard</strong></td>
+              <td>first review <code>1 day</code>, then <code>interval &times; 1.2</code></td>
+              <td>reduced by <code>0.1</code></td>
+            </tr>
+            <tr>
+              <td><strong>Good</strong></td>
+              <td>first review <code>3 days</code>, then <code>interval &times; ease</code></td>
+              <td>unchanged</td>
+            </tr>
+            <tr>
+              <td><strong>Easy</strong></td>
+              <td>first review <code>4 days</code>, then <code>interval &times; ease &times; 1.3</code></td>
+              <td>increased by <code>0.1</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="muted measure">Intervals are rounded to whole days and the next review
+         date is stored as a plain calendar date, so a review is due on a day rather than
+         at an hour. The ease factor is clamped at a floor of <code>1.3</code>; without
+         that floor, an item you repeatedly fail would collapse toward a permanent
+         one-day loop and crowd out everything else.</p>
+
+      <div class="grid-2">
+        <div class="callout callout-info">
+          <h3>Why the intervals are shown on the buttons</h3>
+          <p>Each rating button displays the interval it will produce <em>before</em> you
+             press it. Spacing algorithms usually hide this, which trains people to
+             distrust them. Showing the consequence makes the rating an informed choice
+             and makes the system auditable by the person using it.</p>
+        </div>
+        <div class="callout">
+          <h3>Why Easy carries an extra multiplier</h3>
+          <p>Plain SM-2 treats a confident answer and a correct-but-effortful answer
+             almost identically. The additional <code>1.3</code> factor on
+             <strong>Easy</strong> pushes genuinely known material out of the queue
+             faster, which matters when each item is a video that costs minutes rather
+             than a card that costs seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">The daily queue</p>
+        <h2 class="h-lg">Ordered by urgency, then capped.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="stack">
+            <h3 class="h-md">Overdue</h3>
+            <p class="muted measure">Anything whose next review date has already passed.
+               These come first, because a missed review is the point at which a spacing
+               schedule starts to decay.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="stack">
+            <h3 class="h-md">Due today</h3>
+            <p class="muted measure">Items scheduled for exactly today.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="stack">
+            <h3 class="h-md">New, by priority then age</h3>
+            <p class="muted measure">Videos you have added but never reviewed, sorted
+               high priority first, and oldest first within a priority. New material is
+               last so that adding a batch of videos never buries the reviews you already
+               owe.</p>
+          </div>
+        </div>
+      </div>
+      <p class="muted measure">The combined list is then truncated to your daily goal
+         &mdash; 4, 8, 12 or 20 videos. The cap exists so the session has a definite end.
+         An unbounded queue is the fastest way to make someone stop opening an app.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">Security model</p>
+        <h2 class="h-lg">The database refuses to serve other people's rows.</h2>
+      </div>
+      <p class="muted measure">The client holds a publishable API key, which is normal
+         for this architecture and safe by design: every table enforces row-level
+         security, so the database itself checks the identity attached to each request
+         and will only return rows belonging to that account. The key grants the ability
+         to <em>ask</em>, not the ability to read.</p>
+      <div class="grid-2">
+        <div class="card stack">
+          <h3 class="h-md">What you can write</h3>
+          <p class="muted small">Your own study data &mdash; your library, bookmarks and
+             schedule. Reads and writes are both constrained to rows carrying your own
+             account identifier.</p>
+        </div>
+        <div class="card stack">
+          <h3 class="h-md">What you cannot write</h3>
+          <p class="muted small">Your subscription status. That table is readable by you
+             and writable only by the server, which updates it in response to signed
+             events from the payment processor. A client cannot grant itself access.</p>
+        </div>
+      </div>
+      <p class="small muted">Payment card details are never seen by FeyFey. Checkout and
+         billing management are handled on the payment processor's own hosted pages, and
+         the server receives only signed notifications about subscription state.</p>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">Trade-offs</p>
+        <h2 class="h-lg">What this design costs.</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card stack">
+          <h3 class="h-md">No cross-device files</h3>
+          <p class="muted small">The direct price of never uploading. A future fix is
+             peer-to-peer transfer between your own devices, which keeps the property
+             intact; server-side storage would not.</p>
+        </div>
+        <div class="card stack">
+          <h3 class="h-md">No backup</h3>
+          <p class="muted small">Clearing browser data destroys the files, and we cannot
+             restore them because we never had them. Export tooling is the most important
+             missing feature.</p>
+        </div>
+        <div class="card stack">
+          <h3 class="h-md">Browser storage limits</h3>
+          <p class="muted small">Large libraries can bump into per-site storage quotas,
+             and some mobile browsers reclaim storage aggressively under pressure.</p>
+        </div>
+      </div>
+      <p class="small muted">These are consequences of the storage decision, not bugs. We
+         would rather name them here than let someone discover them after they have built
+         a library.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack-lg" style="text-align:center">
+      <h2 class="h-lg">Questions about the data model?</h2>
+      <p class="muted" style="margin-inline:auto;max-width:52ch">The privacy page lists
+         every field that is stored, who processes it, and what is deliberately not
+         collected.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn btn-primary btn-lg" href="privacy.html">Read the privacy detail</a>
+        <a class="btn btn-tonal btn-lg" href="index.html">Back to overview</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <a class="wordmark" href="index.html"><span class="dot">F</span> FeyFey</a>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="index.html">Overview</a>
+        <a href="developer.html">How it's built</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+    <p class="footer-note">FeyFey is an independent project in active development.
+       Your video files stay on your device.</p>
+  </div>
+</footer>
+
+</body>
+</html>

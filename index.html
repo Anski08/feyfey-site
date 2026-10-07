@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FeyFey — spaced repetition for the videos you learn from</title>
+<meta name="description" content="FeyFey turns passive video watching into active recall. Bookmark the moments that matter, then review them on a spacing schedule. Your video files never leave your device.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="%232848d8"/><text x="32" y="45" font-family="Figtree,Arial,sans-serif" font-size="38" font-weight="700" fill="%23fff" text-anchor="middle">F</text></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="wordmark" href="index.html"><span class="dot">F</span> FeyFey</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Overview</a>
+      <a href="developer.html">How it's built</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container stack-lg">
+      <span class="pill pill-live">In active development</span>
+      <h1>Watching a video is not the same as learning from it.</h1>
+      <p>FeyFey turns passive video watching into active recall. Mark the moments that
+         matter, answer before you watch, and let a spacing schedule decide what comes
+         back tomorrow &mdash; and what can wait three weeks.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary btn-lg" href="https://feyfey.vercel.app" rel="noopener">Open the preview</a>
+        <a class="btn btn-tonal btn-lg" href="#how">See how it works</a>
+      </div>
+      <p class="small muted">The preview is an early build. Expect rough edges and
+         in-progress features.</p>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="container">
+      <p class="eyebrow">The problem</p>
+      <div class="split">
+        <div class="stack">
+          <h2 class="h-lg">Video is the most passive way to study.</h2>
+          <p class="muted">You watch a lecture, a procedure, a tutorial. It makes sense
+             while it plays. A week later almost none of it is retrievable, because
+             recognising something is not the same as recalling it.</p>
+          <p class="muted">Flashcard apps solved this for text. Video never got the same
+             treatment &mdash; so the format people increasingly learn from is the one
+             with the weakest retention tooling.</p>
+        </div>
+        <div class="card" style="padding:var(--space-md)">
+          <p class="eyebrow" style="font-size:var(--text-body-sm);line-height:20px">Recognition vs. recall</p>
+          <svg viewBox="0 0 420 200" role="img" aria-label="Two curves: recognition stays high while recall decays quickly without review.">
+            <line x1="40" y1="170" x2="400" y2="170" stroke="var(--color-border)" stroke-width="2"/>
+            <line x1="40" y1="20" x2="40" y2="170" stroke="var(--color-border)" stroke-width="2"/>
+            <path d="M40 40 C 140 46, 260 54, 400 60" fill="none" stroke="var(--color-slate)" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 7"/>
+            <path d="M40 40 C 110 110, 200 150, 400 162" fill="none" stroke="var(--color-primary)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="40" cy="40" r="6" fill="var(--color-primary)"/>
+            <text x="250" y="48" font-size="13" font-weight="600" fill="var(--color-slate)">Feels familiar</text>
+            <text x="150" y="150" font-size="13" font-weight="600" fill="var(--color-primary)">Can actually recall</text>
+            <text x="46" y="188" font-size="12" fill="var(--color-slate)">day 0</text>
+            <text x="350" y="188" font-size="12" fill="var(--color-slate)">day 30</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2 class="h-lg">Three things, in order.</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="stack">
+            <h3 class="h-md">Add a video and write the question first</h3>
+            <p class="muted measure">Pick a file from your device and give it a subject
+               and a priority. Optionally add a <em>before you watch</em> question.
+               FeyFey shows that question above the player, so you attempt the answer
+               before the video gives it to you. That one reversal is what makes the
+               session active rather than passive.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="stack">
+            <h3 class="h-md">Bookmark the moments that matter</h3>
+            <p class="muted measure">While it plays, label a moment &mdash; "side effects",
+               "step 4", "the bit I always forget". FeyFey stores the label with its
+               timestamp, and it becomes a chip you can tap to jump straight back to
+               that second. Your notes point <em>into</em> the video instead of sitting
+               beside it.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="stack">
+            <h3 class="h-md">Rate it, and let the schedule decide</h3>
+            <p class="muted measure">After reviewing, you answer one question: was that
+               <strong>Forgot</strong>, <strong>Hard</strong>, <strong>Good</strong>, or
+               <strong>Easy</strong>? Each option shows the interval it will produce
+               before you choose it, so the schedule is never a black box. Material you
+               know drifts weeks into the future; material you don't comes back
+               tomorrow.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:var(--space-md)">
+        <p class="eyebrow" style="font-size:var(--text-body-sm);line-height:20px">A typical interval sequence</p>
+        <svg viewBox="0 0 900 120" role="img" aria-label="Review intervals widening: day 0, 3 days later, 8 days, 20 days, 50 days.">
+          <line x1="20" y1="70" x2="880" y2="70" stroke="var(--color-border)" stroke-width="2"/>
+          <g fill="var(--color-primary)">
+            <circle cx="20" cy="70" r="9"/><circle cx="90" cy="70" r="9"/>
+            <circle cx="230" cy="70" r="9"/><circle cx="470" cy="70" r="9"/>
+            <circle cx="860" cy="70" r="9"/>
+          </g>
+          <g font-size="13" font-weight="600" fill="var(--color-slate)" text-anchor="middle">
+            <text x="20" y="46">add</text><text x="90" y="46">+3d</text>
+            <text x="230" y="46">+8d</text><text x="470" y="46">+20d</text>
+            <text x="860" y="46">+50d</text>
+          </g>
+          <g font-size="12" fill="var(--color-slate)" text-anchor="middle">
+            <text x="55" y="100">good</text><text x="160" y="100">good</text>
+            <text x="350" y="100">good</text><text x="665" y="100">easy</text>
+          </g>
+        </svg>
+        <p class="small muted" style="margin-top:var(--space-xs)">
+          Rating something <strong>Forgot</strong> resets it to one day and makes every
+          future interval for that video slightly shorter. The exact arithmetic is on the
+          <a href="developer.html#scheduler">how it's built</a> page.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">What you get</p>
+        <h2 class="h-lg">Built around one session a day.</h2>
+      </div>
+      <div class="tiles">
+        <article class="tile tile-primary pop">
+          <h3>A queue, not a library</h3>
+          <p>Overdue first, then due today, then new. Capped at a daily goal you set, so
+             the session always ends.</p>
+          <svg viewBox="0 0 240 90" aria-hidden="true">
+            <rect x="0" y="6" width="150" height="20" rx="10" fill="rgba(255,255,255,.95)"/>
+            <rect x="0" y="34" width="190" height="20" rx="10" fill="rgba(255,255,255,.6)"/>
+            <rect x="0" y="62" width="110" height="20" rx="10" fill="rgba(255,255,255,.35)"/>
+          </svg>
+        </article>
+        <article class="tile tile-lime pop">
+          <h3>Bookmarks with timestamps</h3>
+          <p>Tap a label to jump to that second. Your notes live inside the video, not
+             in a separate document.</p>
+          <svg viewBox="0 0 240 90" aria-hidden="true">
+            <rect x="0" y="30" width="240" height="10" rx="5" fill="rgba(40,46,62,.15)"/>
+            <g fill="var(--color-ink)">
+              <circle cx="46" cy="35" r="8"/><circle cx="118" cy="35" r="8"/><circle cx="196" cy="35" r="8"/>
+            </g>
+            <rect x="20" y="56" width="58" height="18" rx="9" fill="rgba(40,46,62,.2)"/>
+            <rect x="92" y="56" width="74" height="18" rx="9" fill="rgba(40,46,62,.2)"/>
+          </svg>
+        </article>
+        <article class="tile tile-teal pop">
+          <h3>Teach it back</h3>
+          <p>Record yourself explaining a topic, add it like any other video, and let it
+             come back on the schedule. Nothing special is required &mdash; a teach-back
+             is just a video you made.</p>
+          <svg viewBox="0 0 240 90" aria-hidden="true">
+            <rect x="60" y="4" width="120" height="68" rx="12" fill="rgba(40,46,62,.18)"/>
+            <path d="M104 22 L146 38 L104 54 Z" fill="var(--color-ink)"/>
+          </svg>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Where your videos live</p>
+      <div class="split">
+        <div class="stack">
+          <h2 class="h-lg">Your video files never reach our servers.</h2>
+          <p class="muted">When you add a video, the file is stored by your browser on
+             your own device. It is never uploaded. We hold no copy, we cannot watch it,
+             and we could not hand it to anyone if we were asked.</p>
+          <p class="muted">What <em>does</em> sync is the small stuff: titles, subjects,
+             bookmark labels and timestamps, and your review schedule. That is what lets
+             you sign in elsewhere and keep your progress.</p>
+          <p><a href="privacy.html">Read exactly what is stored and where &rarr;</a></p>
+        </div>
+        <div class="stack">
+          <div class="callout callout-warn">
+            <h3>Two limits worth knowing before you start</h3>
+            <p><strong>Clearing your browser data deletes your videos.</strong> Because the
+               files only exist on your device, there is no backup to restore from. Keep
+               your originals somewhere safe.</p>
+            <p style="margin-top:var(--space-xs)"><strong>Video files do not follow you
+               between devices.</strong> Sign in on your phone and your library and
+               schedule are there, but each file has to be added on each device you want
+               to watch it on.</p>
+          </div>
+          <div class="callout callout-info">
+            <h3>Why we built it this way</h3>
+            <p>Hosting other people's study material means holding it, scanning it, and
+               eventually handing it over. Keeping files local removes that entire
+               category of risk &mdash; and it is also why FeyFey costs what it does.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="container stack-lg">
+      <div>
+        <p class="eyebrow">Honest status</p>
+        <h2 class="h-lg">What works today, and what doesn't yet.</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card stack">
+          <h3 class="h-md">Working</h3>
+          <ul class="muted" style="margin:0;padding-left:var(--space-md)">
+            <li>Accounts and sign-in</li>
+            <li>Adding videos from your device</li>
+            <li>Subjects, priorities and pre-watch questions</li>
+            <li>Timestamped bookmarks</li>
+            <li>The spacing scheduler and daily queue</li>
+            <li>Schedule sync across devices</li>
+            <li>Light and dark themes</li>
+          </ul>
+        </div>
+        <div class="card stack">
+          <h3 class="h-md">Not finished</h3>
+          <ul class="muted" style="margin:0;padding-left:var(--space-md)">
+            <li>Subscription checkout is still being wired up</li>
+            <li>No way to export or back up your library yet</li>
+            <li>No transfer of video files between your own devices</li>
+            <li>No shared or published decks</li>
+            <li>Not yet packaged as a mobile app</li>
+          </ul>
+        </div>
+      </div>
+      <p class="small muted">This list is maintained by hand and reflects the build as of
+         October 2026. If something here is out of date, it is an oversight rather than a
+         claim.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack-lg" style="text-align:center">
+      <h2 class="h-lg">Try the preview, or read the internals.</h2>
+      <p class="muted" style="margin-inline:auto;max-width:52ch">FeyFey is being built in
+         the open. The architecture page explains the scheduler, the storage model and the
+         data boundaries in full.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn btn-primary btn-lg" href="https://feyfey.vercel.app" rel="noopener">Open the preview</a>
+        <a class="btn btn-tonal btn-lg" href="developer.html">How it's built</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <a class="wordmark" href="index.html"><span class="dot">F</span> FeyFey</a>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="index.html">Overview</a>
+        <a href="developer.html">How it's built</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+    <p class="footer-note">FeyFey is an independent project in active development.
+       Your video files stay on your device.</p>
+  </div>
+</footer>
+
+</body>
+</html>

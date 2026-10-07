@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — FeyFey</title>
+<meta name="description" content="Exactly what FeyFey stores, what it never collects, and which third parties process your data. Your video files are never uploaded.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="%232848d8"/><text x="32" y="45" font-family="Figtree,Arial,sans-serif" font-size="38" font-weight="700" fill="%23fff" text-anchor="middle">F</text></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="wordmark" href="index.html"><span class="dot">F</span> FeyFey</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html">Overview</a>
+      <a href="developer.html">How it's built</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container stack-lg">
+      <p class="eyebrow">Privacy</p>
+      <h1>What FeyFey stores, in specifics.</h1>
+      <p>This page describes the actual behaviour of the software, field by field, rather
+         than the broadest permissions a lawyer would prefer we reserve.</p>
+      <div class="callout callout-warn">
+        <h3>Draft &mdash; not yet a binding legal document</h3>
+        <p>FeyFey has not yet finalised its operating entity or governing jurisdiction.
+           Passages in <code>[BRACKETS]</code> are unresolved. The factual descriptions of
+           what the software stores are accurate as of October 2026; the legal framing has
+           not been reviewed by a qualified professional. This page is published early in
+           the interest of transparency, not as a contract.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="container">
+      <div class="split">
+        <div class="stack">
+          <h2 class="h-lg">The short version</h2>
+          <p class="muted">Your video files are never uploaded. We store the email address
+             you sign up with, the text you write about your videos, and your review
+             schedule. There is no analytics, no advertising and no tracking of any kind.</p>
+        </div>
+        <div class="card" style="padding:var(--space-md)">
+          <div class="stack">
+            <p><strong>Never leaves your device:</strong> <span class="muted">your video files, and their contents.</span></p>
+            <p><strong>Stored on our behalf:</strong> <span class="muted">your email, your library text, your schedule, your subscription status.</span></p>
+            <p><strong>Not collected at all:</strong> <span class="muted">analytics, behavioural tracking, advertising identifiers, location, contacts.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container"><div class="prose">
+
+      <h2>1. Who is responsible</h2>
+      <p>FeyFey is operated by <code>[ENTITY NAME]</code>, <code>[REGISTERED ADDRESS]</code>.
+         For any question about this page or your data, contact
+         <code>[CONTACT EMAIL]</code>.</p>
+
+      <h2>2. What we store</h2>
+
+      <h3>2.1 Account information</h3>
+      <ul>
+        <li>The <strong>email address</strong> you register with.</li>
+        <li>A <strong>password</strong>, stored only in hashed form by our authentication
+            provider. FeyFey never receives or stores your password in readable form.</li>
+        <li>A generated <strong>account identifier</strong>, and the timestamps of account
+            creation and last sign-in.</li>
+      </ul>
+
+      <h3>2.2 Your library and schedule</h3>
+      <p>For each video you add, the following is stored on our behalf:</p>
+      <ul>
+        <li>a <strong>title</strong>;</li>
+        <li>a <strong>subject</strong> and a <strong>priority</strong> you assign;</li>
+        <li>an optional <strong>question</strong> you write to answer before watching;</li>
+        <li>your <strong>bookmarks</strong> &mdash; the label text you type and the
+            timestamp in seconds it refers to;</li>
+        <li><strong>scheduling state</strong> &mdash; the date last reviewed, the next
+            review date, the current interval, the ease factor and the number of reviews;</li>
+        <li>your chosen <strong>daily goal</strong>.</li>
+      </ul>
+      <div class="callout callout-warn">
+        <h3>A detail most policies would omit</h3>
+        <p>When you add a video, its title is taken from the <strong>filename</strong> by
+           default. Filenames can be revealing. The title is stored on our behalf, so if a
+           filename contains something you would not want recorded, rename the item in the
+           library &mdash; the stored title follows what you set.</p>
+      </div>
+
+      <h3>2.3 Subscription information</h3>
+      <ul>
+        <li>An identifier issued by our payment processor, linking your account to your
+            customer record with them.</li>
+        <li>Your subscription <strong>status</strong> and the date the current period ends.</li>
+      </ul>
+      <p>FeyFey never receives, handles or stores card numbers. Payment details are
+         entered on the payment processor's own hosted pages.</p>
+
+      <h2>3. What we never receive</h2>
+      <ul>
+        <li><strong>Your video files.</strong> They are written to your browser's local
+            storage on the device that added them and are never transmitted to us. We hold
+            no copy and cannot produce one &mdash; including in response to a legal request.</li>
+        <li><strong>The contents of your videos.</strong> Nothing is transcribed, analysed,
+            scanned or used to train any model.</li>
+        <li><strong>Analytics or behavioural data.</strong> The application loads no
+            analytics script, sets no advertising or tracking cookie, and builds no profile
+            of your activity.</li>
+        <li><strong>Location, contacts, camera or microphone data</strong>, except that any
+            video you choose to add is handled exactly as described above &mdash; locally.</li>
+      </ul>
+
+      <h2>4. Third parties that process data</h2>
+      <div class="table-wrap" style="margin-top:var(--space-sm)">
+        <table>
+          <thead><tr><th>Provider</th><th>Purpose</th><th>What they can see</th></tr></thead>
+          <tbody>
+            <tr><td>Supabase</td><td>Database and authentication</td><td>Your email address, library text and schedule</td></tr>
+            <tr><td>Stripe</td><td>Subscription payments</td><td>Your billing details, which they collect directly</td></tr>
+            <tr><td>Vercel</td><td>Application hosting</td><td>Standard server request logs</td></tr>
+            <tr><td>Google Fonts</td><td>Typeface delivery on this website</td><td>Standard request data when this site loads</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>None of these providers receive your video files, because the application never
+         transmits them.</p>
+
+      <h2>5. Why we are allowed to hold it</h2>
+      <p>We process your account information and library because it is necessary to
+         provide the service you asked for, and your subscription information because it is
+         necessary to run a paid service and to meet record-keeping obligations. We do not
+         rely on advertising or profiling as a basis for anything, because we do neither.</p>
+
+      <h2>6. How long we keep it</h2>
+      <p>Your account and library are kept for as long as your account exists. If you ask
+         us to delete your account, the associated records are removed. Payment records may
+         be retained by our payment processor for the period required by
+         <code>[JURISDICTION]</code> financial record-keeping rules.</p>
+      <p>Your video files are not covered by any of this, because they are on your device.
+         Deleting them is a matter of removing them in the app or clearing your browser
+         data.</p>
+
+      <h2>7. Your rights</h2>
+      <p>Depending on where you live, you may have the right to request a copy of your
+         data, correct it, delete it, or object to its processing. To exercise any of
+         these, contact <code>[CONTACT EMAIL]</code>. We will respond within
+         <code>[RESPONSE PERIOD]</code>.</p>
+      <div class="callout callout-info">
+        <h3>A current limitation, stated plainly</h3>
+        <p>FeyFey does not yet offer a self-service export or account deletion button.
+           Until it does, these requests are handled manually by email. We would rather say
+           that than imply tooling that does not exist.</p>
+      </div>
+
+      <h2>8. Security</h2>
+      <p>Access to your records is enforced at the database level: every row carries an
+         account identifier, and the database refuses to return rows that do not belong to
+         the requesting account. Subscription status is writable only by our server, in
+         response to cryptographically signed events from the payment processor.</p>
+      <p>No system is perfect. Should a breach occur that affects your data, we will notify
+         affected users and any required authority as obliged under
+         <code>[JURISDICTION]</code> law.</p>
+
+      <h2>9. Children</h2>
+      <p>FeyFey is not directed at children under <code>[AGE]</code>, and we do not
+         knowingly collect their information.</p>
+
+      <h2>10. Changes</h2>
+      <p>If this page changes materially, the date below changes with it, and we will
+         notify signed-in users. Until the draft notice at the top of this page is removed,
+         treat this document as a good-faith description of current behaviour rather than a
+         finalised policy.</p>
+
+      <p class="small muted" style="margin-top:var(--space-lg)">
+        Last updated 6 October 2026. Status: <strong>draft</strong>.
+      </p>
+    </div>    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <a class="wordmark" href="index.html"><span class="dot">F</span> FeyFey</a>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="index.html">Overview</a>
+        <a href="developer.html">How it's built</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+    <p class="footer-note">FeyFey is an independent project in active development.
+       Your video files stay on your device.</p>
+  </div>
+</footer>
+
+</body>
+</html>
